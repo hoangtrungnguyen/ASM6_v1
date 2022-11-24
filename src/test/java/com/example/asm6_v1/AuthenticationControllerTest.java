@@ -36,7 +36,7 @@ public class AuthenticationControllerTest {
 
 
     @Test
-    public void contextLoads() throws Exception {
+    public void contextLoads()  {
         assertThat(authenticationController).isNotNull();
     }
 
@@ -171,7 +171,7 @@ public class AuthenticationControllerTest {
     @Nested
     class SignUpPage{
 
-        private UserAccount fakeAccount = new UserAccount(
+        private final UserAccount fakeAccount = new UserAccount(
                 "0000000000000002",
                 "a1234567",
                 0,

@@ -33,9 +33,8 @@ public class AuthenticationController {
     public ModelAndView login(@ModelAttribute String uid) {
 
         if(uid != null){
-            return accountView(userService,(String) uid);
+            return accountView(userService, uid);
         }
-
 
         return loginView(new UserLoginForm());
     }
@@ -70,20 +69,9 @@ public class AuthenticationController {
         if(!isFormValidResult.isOk()){
             return loginView(isFormValidResult.getMessage());
         }
-        Result result = userService.isUserValid(loginForm);
+        Result result = userService.validateUser(loginForm);
         if(!result.isOk()) {
-
-            if (result.getMessage().equalsIgnoreCase(R.ID_NOT_FOUND)) {
-                return loginView(result.getMessage());
-            }
-
-            if (result.getMessage().equalsIgnoreCase(R.PASSWORD_IS_INVALID)) {
-                return loginView(R.PASSWORD_IS_INVALID);
-            }
-
-            if (result.getMessage().equalsIgnoreCase(R.ID_IS_LOCKED)) {
-                return loginView(result.getMessage());
-            }
+            return loginView(result.getMessage());
 
         }
 
@@ -114,7 +102,12 @@ public class AuthenticationController {
 
         userRegisterForm.setUid(loginForm.getUid());
 
-        Result result = this.userService.signUpUser(userRegisterForm);
+        Result result;
+        try {
+            result = this.userService.signUpUser(userRegisterForm);
+        } catch (UserNotFoundException e) {
+            return signUpView(loginForm, userRegisterForm);
+        }
 
         if(!result.isOk()){
 
@@ -122,6 +115,7 @@ public class AuthenticationController {
                 userRegisterForm.setHintErrorMessage(result.getMessage());
                 return signUpView(loginForm,userRegisterForm);
             }
+            
             userRegisterForm.setPasswordErrorMessage(result.getMessage());
             return signUpView(loginForm, userRegisterForm);
         }

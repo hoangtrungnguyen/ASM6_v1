@@ -1,12 +1,13 @@
 package com.example.asm6_v1.model;
 
+import org.apache.catalina.User;
+
 public class UserLoginForm {
 
     private String uid;
     private String password;
 
     private String errorMessage;
-
 
     public UserLoginForm(String errorMessage){
         this.errorMessage = errorMessage;
@@ -15,6 +16,8 @@ public class UserLoginForm {
     public UserLoginForm(){
 
     }
+
+
 
     public UserLoginForm(String uid, String password){
         this.uid = uid;

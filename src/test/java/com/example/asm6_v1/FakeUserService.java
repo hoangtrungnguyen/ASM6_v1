@@ -8,7 +8,7 @@ import com.example.asm6_v1.service.UserService;
 
 public class FakeUserService implements UserService {
     @Override
-    public Result isUserValid(UserLoginForm loginForm) {
+    public Result validateUser(UserLoginForm loginForm) {
         return null;
     }
 

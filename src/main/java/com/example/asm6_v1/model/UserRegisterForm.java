@@ -114,7 +114,7 @@ public class UserRegisterForm {
     }
 
     public boolean isHasAnswer() {
-        return answer1 != null || answer2 != null || answer3 != null;
+        return (answer1 != null && question1 != null ) || (answer2 != null  && question2 != null ) || (answer3 != null  && question3 != null );
     }
 
     public String getUid() {
@@ -127,5 +127,32 @@ public class UserRegisterForm {
 
     public boolean arePasswordsEqual() {
         return password.equals(password2);
+    }
+
+    public UserRegisterForm buildPassword(String password){
+        this.password = password;
+        return this;
+    }
+
+    public UserRegisterForm buildPassword2(String password){
+        this.password2 = password;
+        return this;
+    }
+    public UserRegisterForm buildOldPassword(String password){
+        this.oldPassword = password;
+        return this;
+    }
+
+    public UserRegisterForm buildUid(String uid){
+        this.uid = uid;
+        return this;
+    }
+
+    public boolean isPasswordOneValid() {
+        return password.length() == 8;
+    }
+
+    public boolean isPasswordTwoValid() {
+        return password2.length() == 8;
     }
 }

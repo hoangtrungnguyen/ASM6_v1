@@ -1,10 +1,7 @@
 package com.example.asm6_v1.service;
 
 import com.example.asm6_v1.data.DatabaseLayer;
-import com.example.asm6_v1.model.Result;
-import com.example.asm6_v1.model.UserAccount;
-import com.example.asm6_v1.model.UserLoginForm;
-import com.example.asm6_v1.model.UserRegisterForm;
+import com.example.asm6_v1.model.*;
 import com.example.asm6_v1.util.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,8 +15,9 @@ public class UserServiceImpl implements UserService{
         this.databaseLayer = databaseLayer;
     }
 
+
     @Override
-    public Result isUserValid(UserLoginForm loginForm) {
+    public Result validateUser(UserLoginForm loginForm) {
        UserAccount foundUser = databaseLayer.getUserById(loginForm.getUid());
        if(foundUser == null){
            return new Result(false, R.ID_NOT_FOUND);
@@ -44,21 +42,32 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public Result signUpUser(UserRegisterForm userRegisterForm){
+    public Result signUpUser(UserRegisterForm userRegisterForm) throws UserNotFoundException {
         if(!userRegisterForm.isHasAnswer()){
             return new Result(false, R.SignUp.HINT_QUESTIONS_CAN_NOT_EMPTY);
         }
 
         UserAccount foundUser = getUserById(userRegisterForm.getUid());
+        if(foundUser == null){
+            throw new UserNotFoundException(String.format("Can't find user with id %s", userRegisterForm.getUid()));
+        }
 
         if(!userRegisterForm.getOldPassword().equals(foundUser.getPassword())){
             return new Result(false, R.SignUp.OLD_PASSWORD_IS_NOT_VALID);
         }
 
+        if(!userRegisterForm.isPasswordOneValid()){
+            return new Result(false, R.SignUp.PASSWORD_ONE_IS_NOT_EQUAL_TO_8);
+        }
+
+        if(!userRegisterForm.isPasswordTwoValid()){
+            return new Result(false, R.SignUp.PASSWORD_TWO_IS_NOT_EQUAL_TO_8);
+        }
+
         if(!userRegisterForm.arePasswordsEqual()){
             return new Result(false, R.SignUp.PASSWORDS_ARE_NOT_MATCHED);
         }
-        return new Result(true, "OK");
+        return new Result(true, R.OK);
     }
 
     @Override
@@ -69,12 +78,12 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public Result isFormValid(UserLoginForm loginForm) {
-        String pwd = loginForm.getPassword();
-        if(pwd.length() != 8){
+        if(loginForm.getPassword().length() != 8){
             return new Result(false, R.PASSWORD_LENGTH_NOT_EQUAL_TO_8);
         } else if(loginForm.getUid().length() != 16){
             return new Result(false, R.ID_LENGTH_NOT_EQUAL_TO_16);
         }
+
         return new Result(true, "Ok");
     }
 

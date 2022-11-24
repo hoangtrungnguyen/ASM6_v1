@@ -5,6 +5,7 @@ import java.util.Map;
 public class R {
 
 
+    static public final String OK = "Ok";
     static public final String PASSWORD_IS_INVALID = "Password is not valid";
     public static final String ID_IS_LOCKED = "Id is locked";
     public static final String ID_NOT_FOUND = "Id is not found";
@@ -24,6 +25,8 @@ public class R {
         static public final String HINT_QUESTIONS_CAN_NOT_EMPTY = "Hint questions can not be empty";
         static public final String PASSWORDS_ARE_NOT_MATCHED = "Passwords are not matched";
         static public final String OLD_PASSWORD_IS_NOT_VALID= "Old password is not valid";
+        public static final String PASSWORD_TWO_IS_NOT_EQUAL_TO_8 = "Password 2 is not equal to 8";
+        public static final String PASSWORD_ONE_IS_NOT_EQUAL_TO_8 = "Password 1 is not equal to 8";
     }
 
 

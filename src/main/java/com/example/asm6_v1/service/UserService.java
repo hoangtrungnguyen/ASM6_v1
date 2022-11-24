@@ -1,13 +1,10 @@
 package com.example.asm6_v1.service;
 
-import com.example.asm6_v1.model.Result;
-import com.example.asm6_v1.model.UserAccount;
-import com.example.asm6_v1.model.UserLoginForm;
-import com.example.asm6_v1.model.UserRegisterForm;
+import com.example.asm6_v1.model.*;
 
 public interface UserService {
-    Result isUserValid(UserLoginForm loginForm);
-    Result signUpUser(UserRegisterForm userRegisterForm);
+    Result validateUser(UserLoginForm loginForm);
+    Result signUpUser(UserRegisterForm userRegisterForm) throws UserNotFoundException;
 
     UserAccount getUserById(String uid);
 
