@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <title>Sign Up</title>
+</head>
+<body>
+
+<h3 class="m-4">Sign Up Form</h3>
+<!--/*@thymesVar id="userRegisterForm" type="com.example.asm6_v1.model.UserRegisterForm"*/-->
+<form class="card form-group m-4 p-4" th:action="@{/sign-up}" th:object="${userRegisterForm}" method="post">
+    <h5>Hints questions</h5>
+    <fieldset>
+<!--        <input type="d"/>-->
+        <label class="d-block" >
+            <select class="d-inline" id="question1" th:field="*{question1}">
+                <option value="">Choose a question</option>
+                <option value="What's your cat name?">What's your cat name?</option>
+                <option value="What's your childhood friend's name?">What's your childhood friend's name?</option>
+                <option value="How do you cook a sandwich">How do you cook a sandwich</option>
+            </select>
+            <input type="text" th:field="*{answer1}">
+        </label>
+
+        <label class="d-block">
+            <select class="d-inline" th:field="*{question2}">
+                <option value="">Choose a question</option>
+                <option value="What's your cat name?">What's your cat name?</option>
+                <option value="What's your childhood friend's name?">What's your childhood friend's name?</option>
+                <option value="How do you cook a sandwich">How do you cook a sandwich</option>
+            </select>
+            <input type="text" th:field="*{answer2}">
+        </label>
+
+        <label class="d-block">
+            <select class="d-inline" th:field="*{question3}">
+                <option value="">Choose a question</option>
+                <option value="What's your cat name?">What's your cat name?</option>
+                <option value="What's your childhood friend's name?">What's your childhood friend's name?</option>
+                <option value="How do you cook a sandwich">How do you cook a sandwich</option>
+            </select>
+            <input type="text" th:field="*{answer3}">
+        </label>
+
+        <div class="ui-state-error-text" th:if="*{errorMessage}" th:text="*{errorMessage}"></div>
+
+    </fieldset>
+
+    <hr>
+    <h5>Account information</h5>
+    <fieldset>
+        <label class="d-block">
+            Old Password
+            <input class="d-block" type="password" id="old_pwd" th:field="*{oldPassword}" th:required>
+        </label>
+        <label class="d-block">
+            New Password
+            <input class="d-block" type="password" id="new_pwd" th:required th:field="*{password}">
+        </label>
+
+        <label class="d-block">
+            Confirm New Password
+            <input class="d-block" type="password" id="confirm_new_pwd" th:required th:field="*{password2}">
+        </label>
+    </fieldset>
+    <button class="btn btn-success m-4 w-25"  type="submit" id="submit">Sign Up</button>
+
+
+
+</form>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.6/dist/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.2.1/dist/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+<script type="application/javascript">
+
+const oldPwd = $("#old_pwd")
+const newPwd = $("#new_pwd")
+const confirm_new_pwd = $("#confirm_new_pwd")
+
+$("#submit").onclick = (event) => {
+    console.log("submit")
+}
+
+</script>
+</body>
+</html>
