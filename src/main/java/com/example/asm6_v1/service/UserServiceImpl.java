@@ -93,7 +93,4 @@ public class UserServiceImpl implements UserService{
         return getUserById(uid).getLoginCounter() == 1;
     }
 
-//    public UserAccount getUserAccount(){
-//        databaseLayer
-//    }
 }

@@ -27,7 +27,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest
 public class AuthenticationServiceTest {
 
-
         private UserService userService;
 
 
@@ -47,7 +46,8 @@ public class AuthenticationServiceTest {
          * Test 1: uid is invalid and password is valid
          * Test 2: uid is valid and password is invalid
          * Test 3: both uid and password are valid
-        **/
+         * <a href="https://docs.google.com/spreadsheets/d/1oyqL4dWLqDEEbQs0EqJA6cF9r-tmNSJ3/edit#gid=740294220">Sheet to testcase</a>
+         **/
         @ParameterizedTest
         @MethodSource("provide_UidPassword_forFormatFunction")
         public void isFormValid(String uid, String password, Result expectedResult){
@@ -133,6 +133,9 @@ public class AuthenticationServiceTest {
                     );
         }
 
+    /**
+     * <a href="https://docs.google.com/spreadsheets/d/1oyqL4dWLqDEEbQs0EqJA6cF9r-tmNSJ3/edit#gid=403360878">path to test case</a>
+     */
     @ParameterizedTest
     @MethodSource("provide_UidPassword_forValidateUser_function")
     public void  validateUser(String uid, String password, Result expectedResult, String message){
@@ -161,6 +164,23 @@ public class AuthenticationServiceTest {
     }
 
 
+    /**
+     *
+     * <a href="https://docs.google.com/spreadsheets/d/1oyqL4dWLqDEEbQs0EqJA6cF9r-tmNSJ3/edit#gid=769130491">Sheet to testcase</a>
+     */
+    @ParameterizedTest
+    @MethodSource("provideDataFor_IsFirstTimeLogin")
+    public void isFirstTimeLogin(String uid, boolean expected){
+            boolean actual = userService.isFirstTime(uid);
+            assertEquals(expected,actual);
+    }
+
+    private static Stream<Arguments> provideDataFor_IsFirstTimeLogin(){
+            return Stream.of(
+                    Arguments.of("0000000000000006",true),
+                    Arguments.of("0000000000000002", false)
+            );
+    }
 
 
 

@@ -115,7 +115,7 @@ public class AuthenticationController {
                 userRegisterForm.setHintErrorMessage(result.getMessage());
                 return signUpView(loginForm,userRegisterForm);
             }
-            
+
             userRegisterForm.setPasswordErrorMessage(result.getMessage());
             return signUpView(loginForm, userRegisterForm);
         }
