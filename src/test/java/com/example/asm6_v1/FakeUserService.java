@@ -23,12 +23,22 @@ public class FakeUserService implements UserService {
     }
 
     @Override
-    public Result isFormValid(UserLoginForm loginForm) {
+    public Result validateForm(UserLoginForm loginForm) {
         return null;
     }
 
     @Override
     public boolean isFirstTime(String uid) {
         return false;
+    }
+
+    @Override
+    public Result validateHintQuestions(UserRegisterForm userRegisterForm) {
+        return null;
+    }
+
+    @Override
+    public Result validatePasswords(UserRegisterForm userRegisterForm, UserAccount foundUser) {
+        return null;
     }
 }

@@ -43,15 +43,32 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public Result signUpUser(UserRegisterForm userRegisterForm) throws UserNotFoundException {
-        if(!userRegisterForm.isHasAnswer()){
-            return new Result(false, R.SignUp.HINT_QUESTIONS_CAN_NOT_EMPTY);
-        }
+
+        Result HINT_QUESTIONS_CAN_NOT_EMPTY = validateHintQuestions(userRegisterForm);
+        if (!HINT_QUESTIONS_CAN_NOT_EMPTY.isOk()) return HINT_QUESTIONS_CAN_NOT_EMPTY;
 
         UserAccount foundUser = getUserById(userRegisterForm.getUid());
         if(foundUser == null){
             throw new UserNotFoundException(String.format("Can't find user with id %s", userRegisterForm.getUid()));
         }
 
+        Result validatedPasswordResult = validatePasswords(userRegisterForm, foundUser);
+        if (!validatedPasswordResult.isOk()) return validatedPasswordResult;
+
+        return new Result(true, R.OK);
+    }
+
+    @Override
+    public Result validateHintQuestions(UserRegisterForm form) {
+        if(!form.isHasAnswer()){
+            return new Result(false, R.SignUp.HINT_QUESTIONS_CAN_NOT_EMPTY);
+        } else {
+            return new Result(true, R.OK);
+        }
+    }
+
+    @Override
+    public Result validatePasswords(UserRegisterForm userRegisterForm, UserAccount foundUser) {
         if(!userRegisterForm.getOldPassword().equals(foundUser.getPassword())){
             return new Result(false, R.SignUp.OLD_PASSWORD_IS_NOT_VALID);
         }
@@ -77,7 +94,7 @@ public class UserServiceImpl implements UserService{
 
 
     @Override
-    public Result isFormValid(UserLoginForm loginForm) {
+    public Result validateForm(UserLoginForm loginForm) {
         if(loginForm.getPassword().length() != 8){
             return new Result(false, R.PASSWORD_LENGTH_NOT_EQUAL_TO_8);
         } else if(loginForm.getUid().length() != 16){

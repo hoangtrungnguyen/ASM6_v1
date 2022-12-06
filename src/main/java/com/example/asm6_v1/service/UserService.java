@@ -8,7 +8,11 @@ public interface UserService {
 
     UserAccount getUserById(String uid);
 
-    Result isFormValid(UserLoginForm loginForm);
+    Result validateForm(UserLoginForm loginForm);
 
     boolean isFirstTime(String uid);
+
+    Result validateHintQuestions(UserRegisterForm userRegisterForm);
+    Result validatePasswords(UserRegisterForm userRegisterForm, UserAccount foundUser);
+
 }

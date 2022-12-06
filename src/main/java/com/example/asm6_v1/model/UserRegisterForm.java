@@ -1,6 +1,6 @@
 package com.example.asm6_v1.model;
 
-import java.util.HashMap;
+import org.springframework.lang.Nullable;
 
 public class UserRegisterForm {
 
@@ -114,7 +114,19 @@ public class UserRegisterForm {
     }
 
     public boolean isHasAnswer() {
-        return (answer1 != null && question1 != null ) || (answer2 != null  && question2 != null ) || (answer3 != null  && question3 != null );
+        return (
+                isNotNullOrEmpty(answer1)  && isNotNullOrEmpty(question1)
+
+        ) || (
+                isNotNullOrEmpty(answer2)  && isNotNullOrEmpty(question2)
+        ) || (
+                isNotNullOrEmpty(answer3)  && isNotNullOrEmpty(question3)
+        );
+    }
+
+    private boolean isNotNullOrEmpty(@Nullable String value){
+        if(value == null) return false;
+        return !value.isEmpty();
     }
 
     public String getUid() {

@@ -65,7 +65,7 @@ public class AuthenticationController {
     public ModelAndView loginSubmit(@ModelAttribute UserLoginForm loginForm) {
         System.out.println(loginForm);
 
-        Result isFormValidResult = userService.isFormValid(loginForm);
+        Result isFormValidResult = userService.validateForm(loginForm);
         if(!isFormValidResult.isOk()){
             return loginView(isFormValidResult.getMessage());
         }
